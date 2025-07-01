@@ -1,0 +1,664 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+:root {
+    --primary-color: #00bcd4; /* Azul claro/turquesa */
+    --secondary-color: #ff4081; /* Rosa vibrante */
+    --text-color: #ffffff; /* Branco */
+    --background-dark: rgba(0, 0, 0, 0.7); /* Escuro semi-transparente */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-color);
+    overflow: hidden; /* Para garantir que o vídeo de fundo não cause scroll */
+    background-color: black; /* Fallback caso a imagem de fundo não carregue */
+    background-image: url('https://gifdb.com/images/high/gfycat-network-background-7ceo8pg1xxgcqj90.webp');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Auth Containers (Login/Register) */
+.auth-container {
+    background-color: var(--background-dark);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.auth-container h2 {
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    font-size: 2.2em;
+}
+
+.auth-container input {
+    width: calc(100% - 20px);
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #333;
+    color: var(--text-color);
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.auth-container input:focus {
+    border-color: var(--primary-color);
+}
+
+.auth-container button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+}
+
+.auth-container button:hover {
+    background-color: #008c9e;
+    transform: translateY(-2px);
+}
+
+.auth-container .error-message {
+    color: var(--secondary-color);
+    margin-top: 10px;
+    font-size: 0.9em;
+    min-height: 20px; /* Garante espaço para a mensagem de erro */
+}
+
+.auth-container .link {
+    color: var(--primary-color);
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 15px;
+    display: inline-block;
+}
+
+/* Chat Layout */
+.main-chat-layout {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    max-width: 1200px;
+    height: 90vh;
+    background-color: var(--background-dark);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.chat-header {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #444;
+    flex-wrap: wrap; /* Permite que os itens quebrem a linha em telas menores */
+    gap: 10px;
+}
+
+.chat-title {
+    color: var(--primary-color);
+    font-size: 1.8em;
+    margin: 0;
+}
+
+#current-user {
+    font-size: 0.9em;
+    color: #bbb;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.header-buttons button, .header-link {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* Para os links */
+    display: flex; /* Para alinhar ícone e texto */
+    align-items: center;
+    gap: 5px;
+}
+
+.header-buttons button:hover, .header-link:hover {
+    background-color: #777;
+}
+
+.chat-main-content {
+    display: flex;
+    flex: 1; /* Ocupa o espaço restante */
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-right: 1px solid #444;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+#active-rooms-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    flex-grow: 1; /* Permite que a lista cresça */
+    overflow-y: auto; /* Adiciona scroll se a lista for longa */
+}
+
+#active-rooms-list li {
+    background-color: #333;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    word-break: break-word; /* Quebra palavras longas */
+}
+
+#active-rooms-list li:hover {
+    background-color: #555;
+}
+
+.room-management {
+    margin-top: auto; /* Empurra para o final da sidebar */
+    padding-top: 15px;
+    border-top: 1px solid #444;
+}
+
+.room-management input {
+    width: calc(100% - 10px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #333;
+    color: var(--text-color);
+    outline: none;
+}
+
+.room-management button {
+    width: 100%;
+    background-color: #03a9f4; /* Azul claro */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.room-management button:hover {
+    background-color: #0288d1;
+}
+
+#current-room {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.chat-area {
+    flex: 1; /* Ocupa o resto do espaço horizontal */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.messages {
+    flex-grow: 1; /* Faz a área de mensagens ocupar o máximo de espaço */
+    overflow-y: auto; /* Adiciona rolagem se as mensagens excederem a altura */
+    padding-right: 10px; /* Espaço para a barra de rolagem */
+    margin-bottom: 15px;
+}
+
+.message-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    word-wrap: break-word; /* Garante que mensagens longas quebrem a linha */
+    max-width: 80%; /* Limita a largura da bolha da mensagem */
+    align-self: flex-start; /* Alinha à esquerda por padrão */
+    animation: fadeIn 0.3s ease-out;
+}
+
+.message-item .username {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-right: 5px;
+}
+
+.message-item .timestamp {
+    display: block; /* Garante que o timestamp fique em sua própria linha */
+    font-size: 0.75em;
+    color: #aaa;
+    margin-top: 5px;
+    text-align: right;
+}
+
+.message-item audio {
+    width: 100%;
+    margin-top: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+/* NOVO: Estilo para imagens no chat */
+.message-item img {
+    max-width: 100%; /* Garante que a imagem não transborde */
+    height: auto; /* Mantém a proporção */
+    border-radius: 8px;
+    margin-top: 5px; /* Espaçamento entre o texto e a imagem, se houver */
+    display: block; /* Garante que a imagem ocupe sua própria linha */
+}
+
+/* Input de Mensagem e Botões */
+.message-input-area {
+    display: flex; /* Garante que os itens fiquem na mesma linha */
+    align-items: center;
+    gap: 10px; /* Espaçamento entre os elementos */
+    padding-top: 15px;
+    border-top: 1px solid #444;
+}
+
+#message-input {
+    flex: 1; /* Ocupa o máximo de espaço possível */
+    padding: 12px;
+    border: 1px solid #444;
+    border-radius: 25px; /* Bordas mais arredondadas */
+    background-color: #333;
+    color: var(--text-color);
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#message-input:focus {
+    border-color: var(--primary-color);
+}
+
+.message-input-area button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 25px; /* Bordas mais arredondadas */
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex; /* Para alinhar ícone e texto */
+    align-items: center;
+    gap: 5px;
+}
+
+.message-input-area button:hover {
+    background-color: #008c9e;
+    transform: translateY(-1px);
+}
+
+/* NOVO: Estilo para o label de upload de imagem */
+.image-upload-label {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 25px; /* Bordas mais arredondadas */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em; /* Tamanho do ícone */
+}
+
+.image-upload-label:hover {
+    background-color: #008c9e; /* Tom mais escuro no hover */
+    transform: translateY(-1px);
+}
+
+/* NOVO: Estilo para o container de pré-visualização da imagem */
+#image-preview-container {
+    background-color: rgba(255, 255, 255, 0.08);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex; /* Para alinhar imagem e botão */
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border: 1px dashed #555;
+}
+
+#image-preview {
+    max-width: 150px; /* Limita o tamanho da pré-visualização */
+    max-height: 150px;
+    object-fit: contain; /* Garante que a imagem se encaixe sem cortar */
+    border-radius: 5px;
+}
+
+/* NOVO: Botão de cancelar imagem */
+.clear-button {
+    background-color: #f44336; /* Vermelho */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 20px; /* Mais arredondado */
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.clear-button:hover {
+    background-color: #d32f2f;
+}
+
+
+/* Estilos para o Modal de Doação (já existentes) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.modal-content {
+    background-color: #222;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #555;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    text-align: center;
+    animation: zoomIn 0.3s ease-out;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.modal-content p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.donation-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.crypto-option {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    flex: 1 1 calc(50% - 20px); /* Para dois itens por linha, com gap */
+    min-width: 250px;
+}
+
+.crypto-option h3 {
+    color: #ffd700; /* Dourado para cripto */
+    margin-bottom: 10px;
+}
+
+.crypto-option .address {
+    background-color: #444;
+    padding: 10px;
+    border-radius: 5px;
+    word-break: break-all;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 10px;
+}
+
+.crypto-option button {
+    background-color: #03a9f4;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.crypto-option button:hover {
+    background-color: #0288d1;
+}
+
+.small-text {
+    font-size: 0.8em;
+    color: #bbb;
+    margin-top: 20px;
+}
+
+
+/* Animações */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .main-chat-layout {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+    }
+
+    .chat-main-content {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #444;
+        padding-bottom: 10px;
+        max-height: 200px; /* Limita a altura da sidebar em telas pequenas */
+    }
+
+    .sidebar h3 {
+        text-align: center;
+    }
+
+    #active-rooms-list {
+        display: flex; /* Transforma a lista em linha em telas pequenas */
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    #active-rooms-list li {
+        padding: 8px 12px;
+        margin-bottom: 0;
+        white-space: nowrap; /* Impede a quebra de linha dos nomes das salas */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 48%; /* Para 2 colunas */
+    }
+
+    .room-management {
+        flex-direction: column;
+        align-items: center;
+        padding-top: 10px;
+        border-top: none; /* Remove a borda superior se já tiver bottom */
+    }
+
+    .room-management input,
+    .room-management button {
+        width: 90%;
+    }
+
+    .chat-area {
+        padding: 15px;
+    }
+
+    .message-input-area {
+        flex-wrap: wrap; /* Permite que os botões quebrem a linha */
+        justify-content: center;
+    }
+
+    #message-input {
+        width: 100%;
+        margin-bottom: 10px; /* Adiciona espaço abaixo do input */
+    }
+
+    .message-input-area button,
+    .image-upload-label {
+        flex-grow: 1; /* Faz os botões e label ocuparem o espaço disponível */
+        margin-top: 5px;
+        padding: 10px; /* Ajusta o padding para telas menores */
+    }
+
+    .header-buttons {
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .header-buttons button, .header-link {
+        width: 100%;
+        text-align: center;
+        justify-content: center; /* Centraliza o conteúdo do botão/link */
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .crypto-option {
+        flex: 1 1 100%; /* Um item por linha */
+    }
+}
