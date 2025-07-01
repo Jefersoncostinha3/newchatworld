@@ -1,82 +1,63 @@
-// Importa os módulos necessários
 const express = require('express');
-const http = require('http'); // Módulo HTTP do Node.js para criar o servidor
-const { Server } = require("socket.io"); // Socket.IO para comunicação em tempo real
-const path = require('path'); // Para lidar com caminhos de ficheiros
-const mongoose = require('mongoose'); // Para interação com o MongoDB
-const dotenv = require('dotenv'); // Para carregar variáveis de ambiente
+const http = require('http');
+const { Server } = require("socket.io");
+const path = require('path');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
-// Carrega as variáveis de ambiente do ficheiro .env
 dotenv.config();
 
 // Certifique-se de que os modelos de usuário e mensagem estão corretos e no caminho certo
-const User = require('./models/User'); // Importa o modelo de utilizador
+const User = require('./models/User');
 const Message = require('./models/Message'); // Importa o modelo de mensagem
 
-// Configuração básica do Express
 const app = express();
-const server = http.createServer(app); // Cria um servidor HTTP a partir do app Express
-
-// Configura o Socket.IO para trabalhar com o servidor HTTP
-// IMPORTANTE: Adiciona configuração CORS para permitir conexões do frontend (aplicativo Expo)
-const io = new Server(server, {
-  cors: {
-    origin: "*", // Permite todas as origens para desenvolvimento. Em produção, restrinja a domínios específicos (ex: 'https://seu-app-expo.com').
-    methods: ["GET", "POST"] // Métodos HTTP permitidos para as requisições CORS
-  }
-});
+const server = http.createServer(app);
+const io = new Server(server);
 
 // Conexão com o MongoDB
 const connectDB = async () => {
     try {
-        // Conecta ao MongoDB usando a URI do ambiente
         await mongoose.connect(process.env.MONGO_URI);
         console.log('MongoDB conectado com sucesso!');
     } catch (error) {
         console.error(`Erro ao conectar ao MongoDB: ${error.message}`);
-        // Sai do processo se a conexão falhar, pois o banco de dados é essencial
-        process.exit(1);
+        process.exit(1); // Sai do processo se a conexão falhar
     }
 };
-connectDB(); // Chama a função para conectar ao banco de dados
+connectDB();
 
 // Middleware para analisar corpos de requisição JSON
 app.use(express.json());
-// Servir ficheiros estáticos da pasta 'public' (HTML, CSS, JS do frontend web)
+// Servir arquivos estáticos da pasta 'public'
 app.use(express.static(path.join(__dirname, 'public')));
 
 // --- Rotas de Autenticação (REST API) ---
-// Rota para registar um novo utilizador
 app.post('/api/register', async (req, res) => {
     const { username, password } = req.body;
-    console.log('Requisição de registo recebida:', { username, password });
+    console.log('Requisição de registro recebida:', { username, password });
     try {
-        // Verifica se o nome de utilizador já existe
         const userExists = await User.findOne({ username });
         if (userExists) {
-            return res.status(400).json({ message: 'Nome de utilizador já existe.' });
+            return res.status(400).json({ message: 'Nome de usuário já existe.' });
         }
-        // Cria um novo utilizador no banco de dados
         const user = await User.create({ username, password });
-        res.status(201).json({ message: 'Utilizador registado com sucesso!', username: user.username });
+        res.status(201).json({ message: 'Usuário registrado com sucesso!', username: user.username });
     } catch (error) {
-        console.error('Erro no registo:', error);
-        res.status(500).json({ message: 'Erro no servidor ao registar utilizador.' });
+        console.error('Erro no registro:', error);
+        res.status(500).json({ message: 'Erro no servidor ao registrar usuário.' });
     }
 });
 
-// Rota para autenticar um utilizador
 app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
     console.log('Requisição de login recebida:', { username, password });
     try {
-        // Encontra o utilizador pelo nome de utilizador
         const user = await User.findOne({ username });
         if (!user) {
             return res.status(400).json({ message: 'Credenciais inválidas.' });
         }
-        // Compara a senha fornecida com a senha hash armazenada
-        const isMatch = await user.matchPassword(password); // Assume que 'matchPassword' está definido no modelo User
+        const isMatch = await user.matchPassword(password);
         if (!isMatch) {
             return res.status(400).json({ message: 'Credenciais inválidas.' });
         }
@@ -89,57 +70,62 @@ app.post('/api/login', async (req, res) => {
 
 // --- Lógica do Chat (Socket.IO) ---
 const users = {}; // Armazena o mapeamento socket.id -> username
-const rooms = { 'público': new Set() }; // Armazena roomName -> Set de socket.ids (todas as salas)
+const rooms = { 'público': new Set() }; // Armazena roomName -> Set de socket.ids
 
-// Função auxiliar para emitir a lista de salas ativas para todos os clientes
+// Função para emitir a lista de salas ativas para todos os clientes
 async function emitActiveRooms() {
     const activeRooms = {};
     for (const roomName in rooms) {
-        // Filtra salas que têm pelo menos um utilizador conectado
+        // Filtra salas que têm pelo menos um usuário conectado
         if (rooms[roomName].size > 0) {
-            // Mapeia os IDs dos sockets para os nomes de utilizador para exibir
-            activeRooms[roomName] = Array.from(rooms[roomName]).map(socketId => users[socketId]).filter(Boolean); // Filtra valores nulos/indefinidos
+            activeRooms[roomName] = Array.from(rooms[roomName]).map(socketId => users[socketId]);
         }
     }
-    // Emite a lista atualizada de salas para todos os clientes conectados
     io.emit('active-rooms-list', activeRooms);
 }
 
-// Lógica de conexão do Socket.IO
 io.on('connection', (socket) => {
-    console.log('Um utilizador se conectou:', socket.id);
+    console.log('Um usuário se conectou:', socket.id);
 
-    // Evento para definir o nome de utilizador para um socket
     socket.on('set-username', (username) => {
-        users[socket.id] = username; // Associa o socket.id ao nome de utilizador
-        console.log(`Utilizador ${username} definido para socket ${socket.id}`);
-        // O cliente então emitirá 'join-room' após definir o nome de utilizador
-        emitActiveRooms(); // Atualiza a lista de salas para todos
+        // Esta parte do `set-username` pode ser removida se o login já cuida disso.
+        // No fluxo atual, o `myUsername` no frontend é definido após o login bem-sucedido
+        // e então um `join-room` é emitido. O `username` para `join-room` é o que importa.
+        // A lógica de `users[socket.id] = username` é mais apropriada dentro do 'join-room'
+        // ou após o login ser validado, para associar o socket.id ao usuário logado.
+        // Para a integração que fizemos, 'join-room' é o ponto principal para isso.
+        // Mantenho aqui por segurança, mas o 'join-room' é o que realmente associa.
+        users[socket.id] = username;
+        console.log(`Usuário ${username} definido para socket ${socket.id}`);
+        // Considera o usuário na sala padrão 'público' ao se conectar
+        // Isso pode ser redundante se 'join-room' já é chamado após login.
+        //socket.join('público');
+        //rooms['público'].add(socket.id);
+        //io.to('público').emit('user-connected', username);
+        emitActiveRooms();
     });
 
-    // Evento quando um utilizador se desconecta
     socket.on('disconnect', () => {
-        const username = users[socket.id]; // Obtém o nome de utilizador antes de o remover
-        console.log(`Utilizador ${username || socket.id} desconectou.`);
+        const username = users[socket.id]; // Pega o username antes de deletar
+        console.log(`Usuário ${username || socket.id} desconectou.`);
 
-        // Remove o utilizador de todas as salas em que ele estava
+        // Remove o usuário de todas as salas em que ele estava
         for (const roomName in rooms) {
             if (rooms[roomName].has(socket.id)) {
                 rooms[roomName].delete(socket.id);
-                // Notifica a sala que o utilizador desconectou, se houver um nome de utilizador
+                // Notifica a sala que o usuário desconectou, se houver um username
                 if (username) {
                     io.to(roomName).emit('user-disconnected', username);
                 }
             }
         }
-        delete users[socket.id]; // Remove o utilizador do mapeamento global
-        emitActiveRooms(); // Atualiza a lista de salas após a desconexão
+        delete users[socket.id]; // Remove o usuário do mapeamento global
+        emitActiveRooms();
     });
 
-    // Evento para receber e retransmitir mensagens de chat
     socket.on('chat-message', async (msg) => {
-        const { username, room, message, audio, image, type } = msg;
-        const normalizedRoomName = room.toLowerCase(); // Normaliza o nome da sala para minúsculas
+        const { username, room, message, audio, image, type } = msg; // Adicionado 'image'
+        const normalizedRoomName = room.toLowerCase();
 
         // Salvar a mensagem no banco de dados
         try {
@@ -154,26 +140,24 @@ io.on('connection', (socket) => {
                 newMessage.message = message;
             } else if (type === 'audio') {
                 newMessage.audio = audio;
-            } else if (type === 'image') {
+            } else if (type === 'image') { // NOVO: Lidar com mensagem de imagem
                 newMessage.image = image;
                 if (message) { // Permite texto junto com a imagem (opcional)
                     newMessage.message = message;
                 }
             }
 
-            await newMessage.save(); // Salva a mensagem no MongoDB
+            await newMessage.save();
             console.log('Mensagem salva no DB:', newMessage);
 
-            // Reemite a mensagem para a sala específica onde ela foi enviada
+            // Reemitir a mensagem para a sala
             io.to(normalizedRoomName).emit('chat-message', newMessage);
         } catch (error) {
             console.error('Erro ao salvar ou emitir mensagem:', error);
-            // Envia um erro de volta apenas para o remetente
             socket.emit('room-error', 'Erro ao enviar mensagem.');
         }
     });
 
-    // Evento para criar uma nova sala
     socket.on('create-room', async (roomName, username) => {
         const normalizedRoomName = roomName.toLowerCase();
         if (rooms[normalizedRoomName]) {
@@ -181,65 +165,61 @@ io.on('connection', (socket) => {
             return;
         }
 
-        rooms[normalizedRoomName] = new Set(); // Cria um novo conjunto para a sala
+        rooms[normalizedRoomName] = new Set();
         console.log(`Sala "${roomName}" criada por ${username}.`);
         socket.emit('room-created', roomName); // Informa o criador que a sala foi criada
-        // O cliente então emitirá um 'join-room' para essa nova sala
-        await emitActiveRooms(); // Atualiza a lista de salas para todos os clientes
+        // Após criar, o criador é automaticamente movido para a nova sala
+        // (o cliente então emitirá um 'join-room' para essa nova sala)
+        await emitActiveRooms();
     });
 
-    // Evento para um utilizador entrar numa sala
     socket.on('join-room', async (roomName, username) => {
         const normalizedRoomName = roomName.toLowerCase();
 
         // Primeiro, verifique se a sala existe. Se não, crie-a.
         if (!rooms[normalizedRoomName]) {
+            // Se a sala não existe, crie-a antes de juntar
             rooms[normalizedRoomName] = new Set();
             console.log(`Sala "${roomName}" não existia e foi criada por ${username} ao entrar.`);
-            // Opcional: emitir um evento 'room-created' para outros clientes também, se desejar notificação global
-            // io.emit('room-created', roomName);
+            // Opcional: emitir um evento 'room-created' para outros clientes também
+            // io.emit('room-created', roomName); // Se quiser notificar todos
         }
 
-        // Deixar todas as salas antigas, exceto o próprio socket.id (que é uma "sala" privada)
+        // Deixar as salas antigas, exceto o próprio socket.id (que é uma "sala" privada)
         for (const room of socket.rooms) {
             if (room !== socket.id) { // Não queremos sair do próprio socket.id
                 socket.leave(room);
                 const currentRoomSet = rooms[room];
                 if (currentRoomSet) {
-                    currentRoomSet.delete(socket.id); // Remove o socket.id do conjunto da sala anterior
+                    currentRoomSet.delete(socket.id);
                 }
             }
         }
 
-        // Adicionar o utilizador ao mapeamento global (se ainda não estiver lá, ou atualizar)
+        // Adicionar o usuário ao mapeamento global (se ainda não estiver lá, ou atualizar)
         users[socket.id] = username;
         
-        // Junta o socket à nova sala
-        socket.join(normalizedRoomName);
-        rooms[normalizedRoomName].add(socket.id); // Adiciona o socket.id ao conjunto da nova sala
+        socket.join(normalizedRoomName); // O Socket.IO sempre usa lowercase para o nome da sala ao fazer join/emit
+        rooms[normalizedRoomName].add(socket.id);
 
-        console.log(`Utilizador ${username} entrou na sala: ${normalizedRoomName}`);
+        console.log(`Usuário ${username} entrou na sala: ${normalizedRoomName}`);
         socket.emit('room-joined', roomName); // Envia o nome ORIGINAL da sala para o frontend (para exibir)
-        io.to(normalizedRoomName).emit('user-connected', username); // Emite para a sala que um novo utilizador se conectou
+        io.to(normalizedRoomName).emit('user-connected', username); // Emite para a sala (minúsculas)
 
-        // Carrega as últimas 50 mensagens antigas para a sala recém-entrada
+        // Carrega mensagens antigas para a sala recém-entrada
         const historicalMessages = await Message.find({ room: normalizedRoomName })
                                                     .sort({ timestamp: 1 }) // Ordena do mais antigo para o mais novo
                                                     .limit(50); // Limita às últimas 50 mensagens
-        socket.emit('previous-messages', historicalMessages); // Envia as mensagens históricas para o cliente
+        socket.emit('previous-messages', historicalMessages);
 
-        await emitActiveRooms(); // Atualiza a lista de salas para todos os clientes
+        await emitActiveRooms();
     });
 
-    // Evento para um cliente solicitar a lista de salas ativas
     socket.on('request-active-rooms', async () => {
         await emitActiveRooms();
     });
 });
 
-// Define a porta em que o servidor irá escutar.
-// process.env.PORT é uma variável de ambiente que o Render.com injeta.
-// Se não estiver definida (ex: ao rodar localmente), usa a porta 3000.
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
