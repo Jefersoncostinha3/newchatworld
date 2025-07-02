@@ -1,68 +1,452 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8047537722016072"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="fluid"
-     data-ad-layout-key="-gs-3+1f-3d+2z"
-     data-ad-client="ca-pub-8047537722016072"
-     data-ad-slot="8894007416"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-    <head>
+<html lang="pt-BR">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O Lançamento Se Aproxima!</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8047537722016072"
-     crossorigin="anonymous"></script>
+    <title>Códex Fraternidade: Sua Chave para o Universo Nexus</title>
+    <meta name="description" content="Desvende os segredos da Grande Fraternidade do Universo Conectado com o Códex Fraternidade. Acesso exclusivo, conhecimento profundo e poder da elite.">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --primary-neon: #00ffff; /* Neon Cyan */
+            --secondary-neon: #ff00ff; /* Neon Magenta */
+            --accent-neon: #00ff00; /* Neon Green */
+            --text-color: #e0e0e0; /* Light Grey for text */
+            --background-dark: rgba(10, 10, 10, 0.95); /* Very Dark Grey */
+            --border-glow: rgba(0, 255, 255, 0.5); /* Cyan Glow */
+            --card-bg: rgba(20, 20, 20, 0.8); /* Darker card background */
+            --list-item-border: #00aaff; /* Blue for list item borders */
+        }
+
+        body {
+            font-family: 'Roboto Mono', monospace; /* More cyberpunk font */
+            color: var(--text-color);
+            background-color: #000000;
+            background-image: url('https://gifdb.com/images/high/gfycat-network-background-7ceo8pg1xxgcqj90.webp');
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top left, rgba(0, 255, 255, 0.05) 0%, transparent 40%),
+                        radial-gradient(circle at bottom right, rgba(255, 0, 255, 0.05) 0%, transparent 40%);
+            animation: cosmicShift 30s infinite alternate ease-in-out;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--background-dark);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 80px rgba(0, 255, 255, 0.4), 0 0 30px rgba(255, 0, 255, 0.3);
+            border: 2px solid var(--primary-neon);
+            position: relative;
+            z-index: 1;
+            padding: 40px;
+            animation: fadeIn 2s ease-out forwards;
+            opacity: 0;
+        }
+
+        .header-section {
+            padding: 80px 40px 60px;
+            text-align: center;
+            position: relative;
+            background: rgba(0,0,0,0.8);
+            border-bottom: 2px solid var(--border-glow);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .header-section h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-neon);
+            font-size: 4.5em;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            text-shadow: 0 0 40px var(--primary-neon), 0 0 80px rgba(0, 255, 255, 0.7);
+            animation: glitchText 1.5s infinite alternate, fadeInDown 1.8s ease-out forwards;
+            opacity: 0;
+        }
+        .header-section p {
+            font-size: 2em;
+            color: var(--text-color);
+            text-shadow: 0 0 18px rgba(255, 255, 255, 0.3);
+            margin-bottom: 35px;
+            animation: fadeInUp 1.8s ease-out forwards;
+            opacity: 0;
+            animation-delay: 0.8s;
+        }
+
+        .content-section {
+            padding: 55px 45px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-top: 1px solid rgba(255,255,255,0.08);
+            animation: fadeIn 2.5s ease-out forwards;
+            animation-delay: 2.0s;
+            opacity: 0;
+        }
+        .content-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-neon);
+            font-size: 3.2em;
+            margin-bottom: 40px;
+            text-shadow: 0 0 25px var(--primary-neon);
+            animation: fadeInUp 1.5s ease-out forwards;
+            opacity: 0;
+            animation-delay: 2.5s;
+        }
+        .content-section p {
+            font-size: 1.4em;
+            line-height: 2.1;
+            color: var(--text-color);
+            margin-bottom: 35px;
+            animation: fadeInUp 1.5s ease-out forwards;
+            opacity: 0;
+            animation-delay: 2.7s;
+        }
+        .content-section strong {
+            color: var(--accent-neon);
+            text-shadow: 0 0 10px var(--accent-neon);
+        }
+
+        .benefits-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 55px 0;
+            border-top: 2px solid var(--border-glow);
+            border-bottom: 2px solid var(--border-glow);
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .benefit-item {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 35px;
+            margin: 25px;
+            width: calc(45% - 50px);
+            box-sizing: border-box;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.3), 0 0 15px rgba(255, 0, 255, 0.2);
+            border: 1px solid var(--primary-neon);
+            transition: transform 0.5s ease, box-shadow 0.5s ease, background-color 0.5s ease;
+            cursor: pointer;
+            text-align: center;
+            opacity: 0;
+            animation: scaleIn 0.9s ease-out forwards;
+        }
+        .benefit-item:nth-child(1) { animation-delay: 3.0s; }
+        .benefit-item:nth-child(2) { animation-delay: 3.2s; }
+        .benefit-item:nth-child(3) { animation-delay: 3.4s; }
+        .benefit-item:nth-child(4) { animation-delay: 3.6s; }
+
+        .benefit-item:hover {
+            transform: translateY(-15px) scale(1.06);
+            box-shadow: 0 0 40px var(--primary-neon), 0 0 25px var(--secondary-neon);
+            background-color: rgba(30, 30, 30, 0.9);
+        }
+        .benefit-item i {
+            font-size: 4.5em;
+            margin-bottom: 30px;
+            color: var(--primary-neon);
+            text-shadow: 0 0 20px var(--primary-neon), 0 0 40px rgba(0, 255, 255, 0.6);
+            transition: transform 0.5s ease, color 0.5s ease, text-shadow 0.5s ease;
+        }
+        .benefit-item:hover i {
+            transform: scale(1.25) rotate(10deg);
+            color: var(--secondary-neon);
+            text-shadow: 0 0 30px var(--secondary-neon), 0 0 50px rgba(255, 0, 255, 0.8);
+        }
+        .benefit-item h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2em;
+            color: var(--text-color);
+            margin-bottom: 18px;
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+        }
+        .benefit-item p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+
+        /* Price and CTA Section */
+        .price-cta-section {
+            background-color: rgba(138, 43, 226, 0.15); /* Lighter purple tint */
+            border: 2px solid var(--secondary-neon);
+            border-radius: 12px;
+            padding: 45px;
+            margin: 60px auto;
+            max-width: 850px;
+            box-shadow: 0 0 40px rgba(255, 0, 255, 0.4), inset 0 0 25px rgba(255, 0, 255, 0.2);
+            animation: fadeIn 1.5s ease-out forwards;
+            animation-delay: 4.0s;
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .price-cta-section::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+            filter: blur(30px);
+            z-index: 0;
+            animation: subtleGlowPulse 5s infinite alternate;
+        }
+        .price-cta-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-neon);
+            font-size: 3.5em;
+            margin-bottom: 25px;
+            text-shadow: 0 0 25px var(--primary-neon);
+            position: relative;
+            z-index: 1;
+        }
+        .price-cta-section .price {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4em;
+            color: var(--secondary-neon);
+            text-shadow: 0 0 30px var(--secondary-neon), 0 0 60px rgba(255, 0, 255, 0.7);
+            margin-bottom: 35px;
+            animation: pulseGlowSecondary 2s infinite alternate;
+            position: relative;
+            z-index: 1;
+        }
+        .price-cta-section .price span {
+            font-size: 0.6em;
+            vertical-align: super;
+        }
+        .price-cta-section .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-neon), var(--secondary-neon));
+            color: var(--text-color);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2em;
+            font-weight: bold;
+            padding: 28px 65px;
+            border-radius: 70px;
+            text-decoration: none;
+            box-shadow: 0 0 40px var(--primary-neon), 0 0 20px var(--secondary-neon);
+            transition: all 0.6s ease;
+            animation: pulseGlow 2.5s infinite alternate;
+            /* Removed opacity: 0; */
+            animation-delay: 0s; /* Set delay to 0s for immediate visibility */
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .price-cta-section .cta-button:hover {
+            transform: translateY(-12px) scale(1.07);
+            box-shadow: 0 0 60px var(--primary-neon), 0 0 30px var(--secondary-neon);
+            background: linear-gradient(45deg, var(--secondary-neon), var(--primary-neon));
+            animation: none;
+        }
+        .price-cta-section p {
+            margin-top: 35px;
+            font-size: 1.2em;
+            color: var(--text-color);
+            animation: fadeInUp 1.8s ease-out forwards;
+            opacity: 0;
+            animation-delay: 4.7s;
+        }
+
+        /* Footer */
+        .footer-section {
+            background-color: rgba(0, 0, 0, 0.98);
+            padding: 35px 30px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #aaaaaa;
+            border-top: 1px solid var(--border-glow);
+            border-radius: 0 0 8px 8px;
+        }
+        .footer-section p {
+            margin: 10px 0;
+        }
+        .footer-section a {
+            color: #aaaaaa;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.4s ease;
+        }
+        .footer-section a:hover {
+            color: var(--primary-neon);
+        }
+
+        /* Animations */
+        @keyframes cosmicShift {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.7); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 40px var(--primary-neon), 0 0 20px var(--secondary-neon); }
+            50% { box-shadow: 0 0 50px var(--primary-neon), 0 0 25px var(--secondary-neon); }
+            100% { box-shadow: 0 0 40px var(--primary-neon), 0 0 20px var(--secondary-neon); }
+        }
+        @keyframes pulseGlowSecondary {
+            0% { text-shadow: 0 0 25px var(--secondary-neon), 0 0 50px rgba(255, 0, 255, 0.7); }
+            50% { text-shadow: 0 0 30px var(--primary-neon), 0 0 60px rgba(0, 255, 255, 0.8); }
+            100% { text-shadow: 0 0 25px var(--secondary-neon), 0 0 50px rgba(255, 0, 255, 0.7); }
+        }
+        @keyframes glitchText {
+            0% { text-shadow: 0 0 40px var(--primary-neon); transform: skew(0deg); }
+            20% { text-shadow: 0 0 40px var(--primary-neon), -2px 2px 0 var(--secondary-neon); transform: skew(-5deg); }
+            40% { text-shadow: 0 0 40px var(--primary-neon), 2px -2px 0 var(--secondary-neon); transform: skew(5deg); }
+            60% { text-shadow: 0 0 40px var(--primary-neon), -1px 1px 0 var(--secondary-neon); transform: skew(-2deg); }
+            80% { text-shadow: 0 0 40px var(--primary-neon), 1px -1px 0 var(--secondary-neon); transform: skew(2deg); }
+            100% { text-shadow: 0 0 40px var(--primary-neon); transform: skew(0deg); }
+        }
+        @keyframes subtleGlowPulse {
+            0% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.05); opacity: 0.2; }
+            100% { transform: scale(1); opacity: 0.1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .benefit-item { width: calc(80% - 40px); }
+            .header-section h1 { font-size: 3.5em; }
+            .header-section p { font-size: 1.6em; }
+            .content-section h2 { font-size: 2.5em; }
+            .content-section p { font-size: 1.2em; }
+            .price-cta-section h2 { font-size: 2.8em; }
+            .price-cta-section .price { font-size: 3.5em; }
+            .price-cta-section .cta-button { font-size: 1.8em; padding: 22px 50px; }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 0; }
+            .header-section { padding: 50px 15px 30px; }
+            .header-section h1 { font-size: 2.8em; }
+            .header-section p { font-size: 1.3em; }
+            .content-section { padding: 35px 20px; }
+            .content-section h2 { font-size: 2em; }
+            .content-section p { font-size: 1em; }
+            .benefit-item { width: calc(100% - 40px); margin: 15px 20px; padding: 25px; }
+            .benefit-item i { font-size: 3.5em; }
+            .benefit-item h3 { font-size: 1.5em; }
+            .price-cta-section { padding: 30px; }
+            .price-cta-section h2 { font-size: 2.2em; }
+            .price-cta-section .price { font-size: 3em; }
+            .price-cta-section .cta-button { font-size: 1.5em; padding: 18px 40px; }
+        }
+        @media (max-width: 480px) {
+            .header-section h1 { font-size: 2.2em; }
+            .header-section p { font-size: 1em; }
+            .content-section p { font-size: 0.95em; }
+            .benefit-item { padding: 20px; }
+            .benefit-item i { font-size: 3em; }
+            .benefit-item h3 { font-size: 1.3em; }
+            .price-cta-section h2 { font-size: 1.8em; }
+            .price-cta-section .price { font-size: 2.5em; }
+            .price-cta-section .cta-button { font-size: 1.2em; padding: 15px 30px; }
+        }
+    </style>
 </head>
 <body>
-    <div class="background-video">
-        <video autoplay muted loop id="myVideo">
-            <source src="https://videos.pexels.com/video-files/3191572/3191572-uhd_2560_1440_25fps.mp4" type="video/mp4">
-            Seu navegador não suporta vídeos.
-        </video>
-    </div>
-
-    <div class="overlay"></div>
-
     <div class="container">
-        <header>
-            <h1 class="main-title">Prestes a Acontecer!</h1>
-            <p class="subtitle">Fique ligado para não perder o que vem por aí.</p>
-        </header>
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1>CÓDEX FRATERNIDADE</h1>
+            <p>A Chave para os Segredos do Universo Conectado.</p>
+        </div>
 
-        <div class="countdown" id="countdown">
-            <div class="countdown-item">
-                <span id="days"></span>
-                <p>Dias</p>
-            </div>
-            <div class="countdown-item">
-                <span id="hours"></span>
-                <p>Horas</p>
-            </div>
-            <div class="countdown-item">
-                <span id="minutes"></span>
-                <p>Minutos</p>
-            </div>
-            <div class="countdown-item">
-                <span id="seconds"></span>
-                <p>Segundos</p>
+        <!-- Main Description Section -->
+        <div class="content-section">
+            <h2>// DESVENDE O CONHECIMENTO PROIBIDO //</h2>
+            <p>
+                O <strong>Códex Fraternidade</strong> não é apenas uma assinatura VIP; é seu passaporte para o conhecimento mais profundo e exclusivo dentro da Grande Fraternidade do Universo Conectado. Prepare-se para transcender as barreiras da informação comum e acessar um repositório de sabedoria que só os membros mais seletos podem desvendar.
+            </p>
+            <p>
+                Como um antigo códex, este acesso representa um compêndio de informações secretas, diretrizes e insights que guiarão sua jornada. É a sua entrada para a elite, um privilégio reservado para aqueles que demonstraram a curiosidade e a dedicação para ir além.
+            </p>
+        </div>
+
+        <!-- Benefits Section -->
+        <div class="content-section">
+            <h2>// SEUS PRIVILÉGIOS NO CÓDEX //</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <i class="fas fa-book-open"></i>
+                    <h3>Compêndio de Conhecimentos</h3>
+                    <p>Acesso irrestrito a um repositório de informações secretas, diretrizes e sabedoria que só os membros VIP podem desvendar.</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-fingerprint"></i>
+                    <h3>Exclusividade e Elite</h3>
+                    <p>Um status que reforça sua posição em um nível superior, com acesso a segredos e privilégios não disponíveis ao público geral.</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Guia para a Jornada</h3>
+                    <p>Receba um "manual" ou um "guia" para navegar e prosperar dentro dessa comunidade seleta, aproveitando ao máximo todas as oportunidades.</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <h3>Valor Inestimável</h3>
+                    <p>Mais do que uma assinatura, é a chave para os segredos e o poder da elite do Nexus, um investimento no seu crescimento.</p>
+                </div>
             </div>
         </div>
 
-        <button class="call-to-action">Saiba Mais em Breve!</button>
+        <!-- Price and CTA Section -->
+        <div class="price-cta-section">
+            <h2 style="color: var(--secondary-neon);">// DESBLOQUEIE O CÓDEX FRATERNIDADE //</h2>
+            <p class="price"><span>R$</span> 49,99 / mês</p>
+            <p style="font-size: 1.2em; color: var(--text-color); margin-bottom: 30px;">
+                Adquira sua chave de acesso e comece a explorar os segredos que aguardam apenas os membros da Grande Fraternidade.
+            </p>
+            <a href="https://newchatworld.onrender.com/cadastro-codex.html" target="_blank" class="cta-button">
+                ADQUIRIR AGORA
+            </a>
+        </div>
 
-        <footer>
-            <p>&copy; 2025 The New Era. Todos os direitos reservados.</p>
-        </footer>
+        <!-- Footer -->
+        <div class="footer-section">
+            <p>&copy; 2025 Códex Fraternidade. Todos os direitos reservados. Onde os Segredos São Revelados.</p>
+            <p>
+                <a href="https://newchatworld.onrender.com/termos.html" target="_blank">Termos do Códex</a> |
+                <a href="https://newchatworld.onrender.com/privacidade.html" target="_blank">Protocolo de Confidencialidade</a> |
+                <a href="https://newchatworld.onrender.com/contato.html" target="_blank">Suporte Secreto</a>
+            </p>
+        </div>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
